@@ -1,6 +1,6 @@
 %define name libgksu
 %define version 2.0.4
-%define release %mkrel 1
+%define release %mkrel 2
 
 %define fakename gksu2.0
 
@@ -66,7 +66,7 @@ that need to ask a user's password to run another program as another user.
 
 %package -n gksu-utils
 Summary: Utilities package for %{name}
-Group: System/Utilities
+Group: System/Base
 Requires: %libname = %version
 
 %description -n gksu-utils
