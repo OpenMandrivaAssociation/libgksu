@@ -93,7 +93,6 @@ rm -rf $RPM_BUILD_ROOT
 desktop-file-install --vendor="" \
   --remove-category="Application" \
   --add-category="Settings" \
-  --add-category="X-MandrivaLinux-System-Configuration-Other" \
   --dir $RPM_BUILD_ROOT%{_datadir}/applications $RPM_BUILD_ROOT%{_datadir}/applications/*
 
 %find_lang %name
