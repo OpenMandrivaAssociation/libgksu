@@ -92,6 +92,7 @@ rm -rf $RPM_BUILD_ROOT
 
 desktop-file-install --vendor="" \
   --remove-category="Application" \
+  --remove-category="AdvancedSettings" \
   --add-category="Settings" \
   --dir $RPM_BUILD_ROOT%{_datadir}/applications $RPM_BUILD_ROOT%{_datadir}/applications/*
 
