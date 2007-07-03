@@ -1,6 +1,6 @@
 %define name libgksu
-%define version 2.0.4
-%define release %mkrel 2
+%define version 2.0.5
+%define release %mkrel 1
 
 %define fakename gksu2.0
 
@@ -18,7 +18,7 @@ Group: System/Libraries
 BuildRoot: %{_tmppath}/%{name}-buildroot
 License: GPL
 BuildRequires: glib2-devel
-#BuildRequires: gtk-doc
+BuildRequires: gtk-doc
 BuildRequires: libgtop2.0-devel
 BuildRequires: startup-notification-devel
 BuildRequires: gnome-keyring-devel
@@ -80,7 +80,8 @@ that need to ask a user's password to run another program as another user.
 %prep
 %setup -q 
 
-%configure2_5x --disable-gtk-doc
+#%configure2_5x --disable-gtk-doc
+%configure2_5x
 
 %build
 
@@ -123,7 +124,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(644,root,root) %{_libdir}/lib*.la
 %{_includedir}/*
 %_libdir/pkgconfig/*
-#%_datadir/gtk-doc/html/%name
+%_datadir/gtk-doc/html/%name
 
 %files -n gksu-utils
 %{_sysconfdir}/gconf/schemas/gksu.schemas
