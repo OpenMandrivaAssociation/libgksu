@@ -15,7 +15,6 @@ Release: %{release}
 Source: http://people.debian.org/~kov/gksu/libgksu/%{name}-%{version}.tar.bz2
 Url: http://www.nongnu.org/gksu/
 Group: System/Libraries
-BuildRoot: %{_tmppath}/%{name}-buildroot
 License: GPL
 BuildRequires: glib2-devel
 BuildRequires: gtk-doc
