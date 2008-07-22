@@ -1,6 +1,6 @@
 %define name libgksu
 %define version 2.0.5
-%define release %mkrel 1
+%define release %mkrel 3
 
 %define fakename gksu2.0
 
