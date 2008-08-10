@@ -1,6 +1,6 @@
 %define name libgksu
-%define version 2.0.5
-%define release %mkrel 3
+%define version 2.0.7
+%define release %mkrel 1
 
 %define fakename gksu2.0
 
@@ -12,7 +12,7 @@ Name: %{name}
 Summary: GKSu libraries
 Version: %{version}
 Release: %{release}
-Source: http://people.debian.org/~kov/gksu/libgksu/%{name}-%{version}.tar.bz2
+Source: http://people.debian.org/~kov/gksu/libgksu/%{name}-%{version}.tar.gz
 Url: http://www.nongnu.org/gksu/
 Group: System/Libraries
 BuildRoot: %{_tmppath}/%{name}-buildroot
@@ -80,7 +80,6 @@ that need to ask a user's password to run another program as another user.
 %prep
 %setup -q 
 
-#%configure2_5x --disable-gtk-doc
 %configure2_5x
 
 %build
