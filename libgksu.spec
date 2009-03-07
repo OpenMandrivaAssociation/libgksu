@@ -29,6 +29,7 @@ BuildRequires: libglade2.0-devel
 BuildRequires: perl-XML-Parser
 BuildRequires: desktop-file-utils
 BuildRequires: dbus-glib-devel
+BuildRequires: intltool
 Provides: libgksu
 Provides: libgksu2
 Obsoletes: libgksu1.2
