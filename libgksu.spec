@@ -1,6 +1,6 @@
 %define name libgksu
-%define version 2.0.7
-%define release %mkrel 2
+%define version 2.0.9
+%define release %mkrel 1
 
 %define fakename gksu2.0
 
@@ -13,6 +13,7 @@ Summary: GKSu libraries
 Version: %{version}
 Release: %{release}
 Source: http://people.debian.org/~kov/gksu/libgksu/%{name}-%{version}.tar.gz
+Patch0:	libgksu-2.0.9-fix-str-fmt.patch
 Url: http://www.nongnu.org/gksu/
 Group: System/Libraries
 BuildRoot: %{_tmppath}/%{name}-buildroot
@@ -80,6 +81,7 @@ that need to ask a user's password to run another program as another user.
 
 %prep
 %setup -q 
+%patch0 -p0
 
 %configure2_5x
 
@@ -88,19 +90,19 @@ that need to ask a user's password to run another program as another user.
 %make
 
 %install
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 %makeinstall_std
 
 desktop-file-install --vendor="" \
   --remove-category="Application" \
   --remove-category="AdvancedSettings" \
   --add-category="Settings" \
-  --dir $RPM_BUILD_ROOT%{_datadir}/applications $RPM_BUILD_ROOT%{_datadir}/applications/*
+  --dir %{buildroot}%{_datadir}/applications %{buildroot}%{_datadir}/applications/*
 
 %find_lang %name
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %if %mdkversion < 200900
 %post -n %libname -p /sbin/ldconfig
