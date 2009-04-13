@@ -1,6 +1,6 @@
 %define name libgksu
 %define version 2.0.9
-%define release %mkrel 1
+%define release %mkrel 2
 
 %define fakename gksu2.0
 
@@ -14,10 +14,11 @@ Version: %{version}
 Release: %{release}
 Source: http://people.debian.org/~kov/gksu/libgksu/%{name}-%{version}.tar.gz
 Patch0:	libgksu-2.0.9-fix-str-fmt.patch
+Patch1:	libgksu-2.0.9-fix_lib64_detection.patch
 Url: http://www.nongnu.org/gksu/
 Group: System/Libraries
 BuildRoot: %{_tmppath}/%{name}-buildroot
-License: GPL
+License: LGPLv2+
 BuildRequires: glib2-devel
 BuildRequires: gtk-doc
 BuildRequires: libgtop2.0-devel
@@ -83,6 +84,13 @@ that need to ask a user's password to run another program as another user.
 %prep
 %setup -q 
 %patch0 -p0
+%patch1 -p0
+aclocal
+autoconf
+# (misc) for some reason, automake -a didn't work, so it was quicker to do like this
+touch NEWS README
+automake
+libtoolize
 
 %configure2_5x
 
