@@ -1,6 +1,6 @@
 %define name libgksu
-%define version 2.0.9
-%define release %mkrel 2
+%define version 2.0.11
+%define release %mkrel 1
 
 %define fakename gksu2.0
 
@@ -12,7 +12,7 @@ Name: %{name}
 Summary: GKSu libraries
 Version: %{version}
 Release: %{release}
-Source: http://people.debian.org/~kov/gksu/libgksu/%{name}-%{version}.tar.gz
+Source: http://people.debian.org/~kov/gksu/%{name}-%{version}.tar.gz
 Patch0:	libgksu-2.0.9-fix-str-fmt.patch
 Patch1:	libgksu-2.0.9-fix_lib64_detection.patch
 Url: http://www.nongnu.org/gksu/
@@ -144,6 +144,7 @@ rm -rf %{buildroot}
 %files -n gksu-utils
 %{_sysconfdir}/gconf/schemas/gksu.schemas
 %{_bindir}/gksu-properties
+%{_datadir}/man/man1/gksu-properties.1*
 %{_datadir}/applications/gksu-properties.desktop
 %{_datadir}/libgksu/gksu-properties.glade
 %{_datadir}/pixmaps/gksu.png
