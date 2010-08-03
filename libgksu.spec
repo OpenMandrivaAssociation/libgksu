@@ -1,6 +1,6 @@
 %define name libgksu
-%define version 2.0.11
-%define release %mkrel 2
+%define version 2.0.12
+%define release %mkrel 1
 
 %define fakename gksu2.0
 
@@ -13,8 +13,9 @@ Summary: GKSu libraries
 Version: %{version}
 Release: %{release}
 Source: http://people.debian.org/~kov/gksu/%{name}-%{version}.tar.gz
-Patch0:	libgksu-2.0.9-fix-str-fmt.patch
+Patch0:	libgksu-2.0.12-fix-str-fmt.patch
 Patch1:	libgksu-2.0.9-fix_lib64_detection.patch
+Patch2: libgksu-2.0.12-fix-build.patch
 Url: http://www.nongnu.org/gksu/
 Group: System/Libraries
 BuildRoot: %{_tmppath}/%{name}-buildroot
@@ -23,10 +24,9 @@ BuildRequires: glib2-devel
 BuildRequires: gtk-doc
 BuildRequires: libgtop2.0-devel
 BuildRequires: startup-notification-devel
-BuildRequires: gnome-keyring-devel
+BuildRequires: libgnome-keyring-devel
 BuildRequires: libGConf2-devel
 BuildRequires: gtk+2-devel
-BuildRequires: libglade2.0-devel
 BuildRequires: perl-XML-Parser
 BuildRequires: desktop-file-utils
 BuildRequires: dbus-glib-devel
@@ -83,19 +83,14 @@ that need to ask a user's password to run another program as another user.
 
 %prep
 %setup -q 
-%patch0 -p0
+%patch0 -p0 -b .str
 %patch1 -p0
-aclocal
-autoconf
-# (misc) for some reason, automake -a didn't work, so it was quicker to do like this
-touch NEWS README
-automake
-libtoolize
-
-%configure2_5x
+%patch2 -p0
+touch README NEWS
 
 %build
-
+autoreconf -fi
+%configure2_5x
 %make
 
 %install
@@ -146,7 +141,7 @@ rm -rf %{buildroot}
 %{_bindir}/gksu-properties
 %{_datadir}/man/man1/gksu-properties.1*
 %{_datadir}/applications/gksu-properties.desktop
-%{_datadir}/libgksu/gksu-properties.glade
+%{_datadir}/libgksu/gksu-properties.ui
 %{_datadir}/pixmaps/gksu.png
 
 
