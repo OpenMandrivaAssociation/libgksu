@@ -1,6 +1,6 @@
 %define name libgksu
 %define version 2.0.12
-%define release %mkrel 2
+%define release %mkrel 3
 
 %define fakename gksu2.0
 
@@ -16,6 +16,7 @@ Source: http://people.debian.org/~kov/gksu/%{name}-%{version}.tar.gz
 Patch0:	libgksu-2.0.12-fix-str-fmt.patch
 Patch1:	libgksu-2.0.9-fix_lib64_detection.patch
 Patch2: libgksu-2.0.12-fix-build.patch
+Patch3:	libgksu-2.0.12-ru.patch
 Url: http://www.nongnu.org/gksu/
 Group: System/Libraries
 BuildRoot: %{_tmppath}/%{name}-buildroot
@@ -86,10 +87,12 @@ that need to ask a user's password to run another program as another user.
 %patch0 -p0 -b .str
 %patch1 -p0
 %patch2 -p0
+%patch3 -p0
 touch README NEWS
 
 %build
 autoreconf -fi
+intltoolize --force
 %configure2_5x
 %make
 
@@ -107,13 +110,6 @@ desktop-file-install --vendor="" \
 
 %clean
 rm -rf %{buildroot}
-
-%if %mdkversion < 200900
-%post -n %libname -p /sbin/ldconfig
-%endif
-%if %mdkversion < 200900
-%postun -n %libname -p /sbin/ldconfig
-%endif
 
 %post -n gksu-utils
 %post_install_gconf_schemas gksu
@@ -143,6 +139,4 @@ rm -rf %{buildroot}
 %{_datadir}/applications/gksu-properties.desktop
 %{_datadir}/libgksu/gksu-properties.ui
 %{_datadir}/pixmaps/gksu.png
-
-
-
+%{_datadir}/locale/*
