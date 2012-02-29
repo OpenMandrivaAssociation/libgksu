@@ -1,26 +1,22 @@
-%define name libgksu
-%define version 2.0.12
-%define release %mkrel 3
-
 %define fakename gksu2.0
 
 %define major 0
 %define libname %mklibname %{fakename}_ %major
-%define libnamedev %mklibname %{fakename}_ %major -d
+%define develname %mklibname %{fakename} -d
 
-Name: %{name}
+Name: libgksu
 Summary: GKSu libraries
-Version: %{version}
-Release: %{release}
-Source: http://people.debian.org/~kov/gksu/%{name}-%{version}.tar.gz
+Version: 2.0.12
+Release: 4
+License: LGPLv2+
+Group: System/Libraries
+Url: http://www.nongnu.org/gksu/
+Source0: http://people.debian.org/~kov/gksu/%{name}-%{version}.tar.gz
 Patch0:	libgksu-2.0.12-fix-str-fmt.patch
 Patch1:	libgksu-2.0.9-fix_lib64_detection.patch
 Patch2: libgksu-2.0.12-fix-build.patch
 Patch3:	libgksu-2.0.12-ru.patch
-Url: http://www.nongnu.org/gksu/
-Group: System/Libraries
-BuildRoot: %{_tmppath}/%{name}-buildroot
-License: LGPLv2+
+
 BuildRequires: glib2-devel
 BuildRequires: gtk-doc
 BuildRequires: libgtop2.0-devel
@@ -42,26 +38,25 @@ supports login shells and preserving environment when acting as a su
  frontend. It is useful to menu items or other graphical programs 
 that need to ask a user's password to run another program as another user.
 
-%package -n %libname
+%package -n %{libname}
 Summary: GKSu libraries
 Group: System/Libraries
 
-%description -n %libname
+%description -n %{libname}
 GKSu is a library that provides a Gtk+ frontend to su and sudo. It 
 supports login shells and preserving environment when acting as a su 
  frontend. It is useful to menu items or other graphical programs 
 that need to ask a user's password to run another program as another user.
 
-%package -n %libnamedev
+%package -n %{develname}
 Summary: Development package for %{name}
 Group: Development/Other
-Requires: %libname = %version
-Provides: libgksu2.0-devel = %version-%release
-Provides: libgksu2-devel = %version-%release
+Requires: %{libname} = %{version}
 Provides: libgksu-devel
 Obsoletes: libgksu1.2-devel
+Obsoletes: %{_lib}gksu2.0_0-devel
 
-%description -n %libnamedev
+%description -n %{develname}
 Development package for %{name}
 
 GKSu is a library that provides a Gtk+ frontend to su and sudo. It 
@@ -72,7 +67,7 @@ that need to ask a user's password to run another program as another user.
 %package -n gksu-utils
 Summary: Utilities package for %{name}
 Group: System/Base
-Requires: %libname = %version
+Requires: %{libname} = %{version}
 
 %description -n gksu-utils
 Utilities package for %{name}
@@ -93,7 +88,8 @@ touch README NEWS
 %build
 autoreconf -fi
 intltoolize --force
-%configure2_5x
+%configure2_5x \
+	--disable-static
 %make
 
 %install
@@ -101,36 +97,23 @@ rm -rf %{buildroot}
 %makeinstall_std
 
 desktop-file-install --vendor="" \
-  --remove-category="Application" \
-  --remove-category="AdvancedSettings" \
-  --add-category="Settings" \
-  --dir %{buildroot}%{_datadir}/applications %{buildroot}%{_datadir}/applications/*
+	--remove-category="Application" \
+	--remove-category="AdvancedSettings" \
+	--add-category="Settings" \
+	--dir %{buildroot}%{_datadir}/applications %{buildroot}%{_datadir}/applications/*
 
-%find_lang %name
+%find_lang %{name}
 
-%clean
-rm -rf %{buildroot}
-
-%post -n gksu-utils
-%post_install_gconf_schemas gksu
-
-%preun -n gksu-utils
-%preun_uninstall_gconf_schemas gksu
-
-%files -n %libname -f %name.lang
-%defattr(-,root,root)
+%files -n %{libname} -f %{name}.lang
 %{_libdir}/*.so.%{major}*
-%_libdir/%name
+%{_libdir}/%{name}
 
-%files -n %libnamedev
-%defattr(-,root,root)
+%files -n %{develname}
 %doc INSTALL ChangeLog AUTHORS
-%{_libdir}/lib*.a
 %{_libdir}/*.so
-%attr(644,root,root) %{_libdir}/lib*.la
 %{_includedir}/*
-%_libdir/pkgconfig/*
-%_datadir/gtk-doc/html/%name
+%{_libdir}/pkgconfig/*
+%{_datadir}/gtk-doc/html/%{name}
 
 %files -n gksu-utils
 %{_sysconfdir}/gconf/schemas/gksu.schemas
@@ -140,3 +123,4 @@ rm -rf %{buildroot}
 %{_datadir}/libgksu/gksu-properties.ui
 %{_datadir}/pixmaps/gksu.png
 %{_datadir}/locale/*
+
