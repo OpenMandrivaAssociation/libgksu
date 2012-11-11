@@ -1,0 +1,25 @@
+Index: libgksu/Makefile.am
+===================================================================
+--- libgksu/Makefile.am
++++ libgksu/Makefile.am	2009-04-13 12:18:35.000000000 +0200
+@@ -1,6 +1,6 @@
+ AM_CFLAGS = -g -O2 -Wall
+ INCLUDES = ${LIBGKSU_CFLAGS}
+-AM_CPPFLAGS = -DLOCALEDIR=\"$(datadir)/locale\" -DDATA_DIR=\"$(datadir)\" -DPREFIX=\"$(prefix)\"
++AM_CPPFLAGS = -DLOCALEDIR=\"$(datadir)/locale\" -DDATA_DIR=\"$(datadir)\" -DLIBDIR=\"$(libdir)\" -DPREFIX=\"$(prefix)\"
+ 
+ lib_LTLIBRARIES = libgksu2.la
+ libgksu2_la_SOURCES = libgksu.c libgksu.h
+Index: libgksu/libgksu.c
+===================================================================
+--- libgksu/libgksu.c
++++ libgksu/libgksu.c	2009-04-13 12:18:56.000000000 +0200
+@@ -1932,7 +1932,7 @@
+   GQuark gksu_quark;
+   int i = 0;
+ 
+-  gchar auxcommand[] = PREFIX "/lib/" PACKAGE "/gksu-run-helper";
++  gchar auxcommand[] = PREFIX "/@LIB@/" PACKAGE "/gksu-run-helper";
+ 
+   int fdpty;
+   pid_t pid;
