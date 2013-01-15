@@ -17,9 +17,9 @@ Patch0:	libgksu-2.0.12-fix-str-fmt.patch
 Patch1:	libgksu-2.0.9-fix_lib64_detection.patch
 Patch2: libgksu-2.0.12-fix-build.patch
 Patch3: Makefile.am.patch
+Patch4: libgksu-automake-1.13.patch
 Url: http://www.nongnu.org/gksu/
 Group: System/Libraries
-BuildRoot: %{_tmppath}/%{name}-buildroot
 License: LGPLv2+
 BuildRequires: gtk-doc
 BuildRequires: libgtop2.0-devel
@@ -90,6 +90,7 @@ that need to ask a user's password to run another program as another user.
 %patch1 -p0
 %patch2 -p0
 %patch3 -p0
+%patch4 -p1 -b .am113~
 touch README NEWS
 #sed -i 's:dist_pkglibexec_SCRIPTS:dist_pkgdata_SCRIPTS:g' \
 #                $(grep -l dist_pkglibexec_SCRIPTS $(find . -name Makefile.am))

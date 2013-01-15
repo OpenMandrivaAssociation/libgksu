@@ -1,0 +1,14 @@
+--- libgksu-2.0.12/configure.ac.bero	2013-01-15 23:33:34.108513962 +0100
++++ libgksu-2.0.12/configure.ac	2013-01-15 23:33:45.059388008 +0100
+@@ -4,9 +4,9 @@
+ AC_PREREQ(2.57)
+ 
+ AC_INIT(libgksu, 2.0.12, kov@debian.org)
+-AM_INIT_AUTOMAKE(AC_PACKAGE_NAME, AC_PACKAGE_VERSION)
++AM_INIT_AUTOMAKE
+ AC_CONFIG_SRCDIR(libgksu/libgksu.c)
+-AM_CONFIG_HEADER(config.h)
++AC_CONFIG_HEADERS([config.h])
+ 
+ MAJOR_VERSION=`echo $VERSION | cut -d '.' -f 1`
+ MINOR_VERSION=`echo $VERSION | cut -d '.' -f 2`
