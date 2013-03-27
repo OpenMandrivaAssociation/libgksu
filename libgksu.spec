@@ -1,17 +1,13 @@
-%define name libgksu
-%define version 2.0.12
-%define release %mkrel 4
-
 %define fakename gksu2.0
 
 %define major 0
 %define libname %mklibname %{fakename}_ %major
 %define libnamedev %mklibname %{fakename}_ %major -d
 
-Name: %{name}
+Name: libgksu
 Summary: GKSu libraries
-Version: %{version}
-Release: %{release}
+Version: 2.0.12
+Release: 5
 Source: http://people.debian.org/~kov/gksu/%{name}-%{version}.tar.gz
 Patch0:	libgksu-2.0.12-fix-str-fmt.patch
 Patch1:	libgksu-2.0.9-fix_lib64_detection.patch
@@ -101,7 +97,6 @@ autoreconf -fi
 %make
 
 %install
-rm -rf %{buildroot}
 %makeinstall_std
 
 desktop-file-install --vendor="" \
@@ -109,19 +104,6 @@ desktop-file-install --vendor="" \
   --remove-category="AdvancedSettings" \
   --add-category="Settings" \
   --dir %{buildroot}%{_datadir}/applications %{buildroot}%{_datadir}/applications/*
-
-%clean
-rm -rf %{buildroot}
-
-%if %mdkversion < 200900
-%post -n %libname -p /sbin/ldconfig
-%endif
-%if %mdkversion < 200900
-%postun -n %libname -p /sbin/ldconfig
-%endif
-
-%post -n gksu-utils
-%post_install_gconf_schemas gksu
 
 %preun -n gksu-utils
 %preun_uninstall_gconf_schemas gksu
