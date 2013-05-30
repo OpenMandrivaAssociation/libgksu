@@ -60,7 +60,7 @@ Summary:	Development package for %{name}
 Group:		Development/Other
 Requires:	%{libname} = %{version}-%{release}
 Provides:	%{name}-devel = %{version}-%{release}
-Obsoletes:	%{_lib}gksu2.0_0-devel
+Obsoletes:	%{_lib}gksu2.0_0-devel < 2.0.12-6
 Obsoletes:	%{_lib}gksu2.0-devel < 2.0.12-6
 
 %description -n %{devname}
