@@ -1,5 +1,5 @@
---- libgksu/libgksu.c.str	2009-06-29 19:48:24.000000000 +0200
-+++ libgksu/libgksu.c	2010-08-03 07:26:12.000000000 +0200
+--- ./libgksu/libgksu.c.str	2009-06-29 19:48:24.000000000 +0200
++++ ./libgksu/libgksu.c	2010-08-03 07:26:12.000000000 +0200
 @@ -1276,7 +1276,7 @@
    context->dir = g_strdup (mkdtemp(template));
    if (!context->dir)
