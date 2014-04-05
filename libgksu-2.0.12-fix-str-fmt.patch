@@ -14,7 +14,7 @@
  	      g_free (converted_str);
  
 -	      g_set_error (error, gksu_quark, GKSU_ERROR_HELPER, emsg);
-+	      g_set_error ("%s", error, gksu_quark, GKSU_ERROR_HELPER, emsg);
++	      g_set_error (error, gksu_quark, GKSU_ERROR_HELPER, "%s", emsg);
  	      g_free (emsg);
  
  	      if (context->debug)
