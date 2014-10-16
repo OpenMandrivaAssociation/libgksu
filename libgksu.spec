@@ -7,7 +7,7 @@
 Summary:	GKSu libraries
 Name:		libgksu
 Version:	2.0.12
-Release:	13
+Release:	14
 Url:		http://www.nongnu.org/gksu/
 Group:		System/Libraries
 License:	LGPLv2+
