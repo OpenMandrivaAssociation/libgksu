@@ -7,7 +7,7 @@
 Summary:	GKSu libraries
 Name:		libgksu
 Version:	2.0.12
-Release:	18
+Release:	19
 Url:		http://www.nongnu.org/gksu/
 Group:		System/Libraries
 License:	LGPLv2+
@@ -31,10 +31,12 @@ BuildRequires:	pkgconfig(libgtop-2.0)
 BuildRequires:	pkgconfig(libstartup-notification-1.0)
 
 %description
-GKSu is a library that provides a Gtk+ frontend to su and sudo. It 
+GKSu is a library that provides a Gtk+ frontend to su and sudo. It
 supports login shells and preserving environment when acting as a su
- frontend. It is useful to menu items or other graphical programs 
+ frontend. It is useful to menu items or other graphical programs
 that need to ask a user's password to run another program as another user.
+
+#---------------------------------------------------------------------------
 
 %package -n gksu-utils
 Summary:	Utilities package for %{name}
@@ -44,16 +46,35 @@ Requires:	%{libname} = %{version}-%{release}
 %description -n gksu-utils
 Utilities package for %{name}
 
+%files -n gksu-utils
+%{_sysconfdir}/gconf/schemas/gksu.schemas
+%{_bindir}/gksu-properties
+%{_datadir}/applications/gksu-properties.desktop
+%{_datadir}/libgksu/gksu-properties.ui
+%{_datadir}/pixmaps/gksu.png
+%{_mandir}/man1/gksu-properties.1*
+
+%preun -n gksu-utils
+%preun_uninstall_gconf_schemas gksu-utils
+
+#---------------------------------------------------------------------------
+
 %package -n %{libname}
 Summary:	GKSu libraries
 Group:		System/Libraries
 Obsoletes:	%{_lib}gksu2.0_0 < 2.0.12-6
 
 %description -n %{libname}
-GKSu is a library that provides a Gtk+ frontend to su and sudo. It 
-supports login shells and preserving environment when acting as a su 
-frontend. It is useful to menu items or other graphical programs 
+GKSu is a library that provides a Gtk+ frontend to su and sudo. It
+supports login shells and preserving environment when acting as a su
+frontend. It is useful to menu items or other graphical programs
 that need to ask a user's password to run another program as another user.
+
+%files -n %{libname}
+%{_libdir}/libgksu2.so.%{major}*
+%{_libdir}/%name
+
+#---------------------------------------------------------------------------
 
 %package -n %{devname}
 Summary:	Development package for %{name}
@@ -66,43 +87,6 @@ Obsoletes:	%{_lib}gksu2.0-devel < 2.0.12-6
 %description -n %{devname}
 Development package for %{name}
 
-%prep
-%setup -q 
-%apply_patches
-touch README NEWS
-autoreconf -fi
-
-%build
-%configure2_5x \
-	--disable-static \
-	LIBS="-lX11"
-%make
-
-%install
-%makeinstall_std
-
-desktop-file-install --vendor="" \
-	--remove-category="Application" \
-	--remove-category="AdvancedSettings" \
-	--add-category="Settings" \
-	--dir %{buildroot}%{_datadir}/applications \
-	%{buildroot}%{_datadir}/applications/*
-
-%preun -n gksu-utils
-%preun_uninstall_gconf_schemas gksu
-
-%files -n gksu-utils
-%{_sysconfdir}/gconf/schemas/gksu.schemas
-%{_bindir}/gksu-properties
-%{_datadir}/applications/gksu-properties.desktop
-%{_datadir}/libgksu/gksu-properties.ui
-%{_datadir}/pixmaps/gksu.png
-%{_mandir}/man1/gksu-properties.1*
-
-%files -n %{libname} 
-%{_libdir}/libgksu2.so.%{major}*
-%{_libdir}/%name
-
 %files -n %{devname}
 %doc INSTALL ChangeLog AUTHORS
 %{_libdir}/*.so
@@ -110,3 +94,27 @@ desktop-file-install --vendor="" \
 %{_libdir}/pkgconfig/*
 %doc %{_datadir}/gtk-doc/html/%name
 
+#---------------------------------------------------------------------------
+%prep
+%setup -q
+%autopatch -p1
+touch README NEWS
+autoreconf -fi
+
+%build
+%configure \
+	--disable-static \
+	LIBS="-lX11" \
+	%{nil}
+%make_build
+
+%install
+%make_install
+
+# .desktop
+desktop-file-install --vendor="" \
+	--remove-category="Application" \
+	--remove-category="AdvancedSettings" \
+	--add-category="Settings" \
+	--dir %{buildroot}%{_datadir}/applications \
+	%{buildroot}%{_datadir}/applications/*
