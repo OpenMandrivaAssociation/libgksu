@@ -103,7 +103,7 @@ autoreconf -fi
 
 %build
 %configure \
-	--disable-gtk-doc
+	--disable-gtk-doc \
 	LIBS="-lX11" \
 	%{nil}
 %make_build
