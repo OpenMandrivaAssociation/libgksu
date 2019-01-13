@@ -7,7 +7,7 @@
 Summary:	GKSu libraries
 Name:		libgksu
 Version:	2.0.12
-Release:	19
+Release:	20
 Url:		http://www.nongnu.org/gksu/
 Group:		System/Libraries
 License:	LGPLv2+
@@ -92,7 +92,7 @@ Development package for %{name}
 %{_libdir}/*.so
 %{_includedir}/*
 %{_libdir}/pkgconfig/*
-%doc %{_datadir}/gtk-doc/html/%name
+#%doc %{_datadir}/gtk-doc/html/%name
 
 #---------------------------------------------------------------------------
 %prep
@@ -103,7 +103,7 @@ autoreconf -fi
 
 %build
 %configure \
-	--disable-static \
+	--disable-gtk-doc
 	LIBS="-lX11" \
 	%{nil}
 %make_build
