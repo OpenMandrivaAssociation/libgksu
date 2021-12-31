@@ -53,6 +53,7 @@ Utilities package for %{name}
 %{_datadir}/libgksu/gksu-properties.ui
 %{_datadir}/pixmaps/gksu.png
 %{_mandir}/man1/gksu-properties.1*
+%{_localedir}/*/*
 
 %preun -n gksu-utils
 %preun_uninstall_gconf_schemas gksu-utils
